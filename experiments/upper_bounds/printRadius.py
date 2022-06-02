@@ -18,9 +18,9 @@ from scriptify import scriptify
 import tensorflow_datasets as tfds
 from time import time
 
-from gloro.v1 import GloroNet
+from gloro import GloroNet
 
-from training.utils import get_data
+from ..training.utils import get_data
 import csv
 import pandas as pd
         
