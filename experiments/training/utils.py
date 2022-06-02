@@ -147,161 +147,39 @@ def get_data(dataset, batch_size, augmentation=None, mixup=False):
         raise ValueError(f'unknown augmentation type: {augmentation}')
 
     # Load the data.
-    if dataset == 'tiny-imagenet':
+    tfds_dir = os.environ['TFDS_DIR'] if 'TFDS_DIR' in os.environ else None
 
-        if 'TINY_IMAGENET_LOCATION' in os.environ:
-            tiny_imagenet_dir = os.environ['TINY_IMAGENET_LOCATION']
+    split = ['train', 'test']
 
-        else:
-            raise ValueError(
-                'to use tiny-imagenet you must set the '
-                '"TINY_IMAGENET_LOCATION" environment variable')
+    (train, test), metadata = tfds.load(
+        dataset,
+        data_dir=tfds_dir,
+        split=split,
+        with_info=True,
+        shuffle_files=True,
+        as_supervised=True)
 
-        x_tr = np.load(f'{tiny_imagenet_dir}/TinyImagenet_train_x.npy')
-        x_te = np.load(f'{tiny_imagenet_dir}/TinyImagenet_test_x.npy')
-        y_tr = np.load(f'{tiny_imagenet_dir}/TinyImagenet_train_y.npy')
-        y_te = np.load(f'{tiny_imagenet_dir}/TinyImagenet_test_y.npy')
+    train = (train
+             .map(
+        lambda x, y: (tf.cast(x, 'float32') / 255., y),
+        num_parallel_calls=tf.data.experimental.AUTOTUNE,
+        deterministic=False)
+             .cache()
+             .batch(batch_size)
+             .map(
+        augmentation,
+        num_parallel_calls=tf.data.experimental.AUTOTUNE,
+        deterministic=False)
+             .prefetch(tf.data.experimental.AUTOTUNE))
 
-        train = (Dataset.from_tensor_slices((x_tr, y_tr))
-                 .cache()
-                 .batch(batch_size)
-                 .map(
-            augmentation,
-            num_parallel_calls=tf.data.experimental.AUTOTUNE,
-            deterministic=False)
-                 .prefetch(tf.data.experimental.AUTOTUNE))
-
-        test = (Dataset.from_tensor_slices((x_te, y_te))
-                .cache()
-                .batch(batch_size)
-                .prefetch(tf.data.experimental.AUTOTUNE))
-
-        metadata = lambda: None
-        metadata.features = {
-            'image': lambda: None,
-            'label': lambda: None,
-        }
-        metadata.features['label'].num_classes = 200
-        metadata.features['image'].shape = (64, 64, 3)
-
-    elif dataset.startswith('cifar10_wti'):
-
-        ratio = float(dataset.split(',')[1])
-
-        if 'TINY_IMAGENET_LOCATION' in os.environ:
-            tiny_imagenet_dir = os.environ['TINY_IMAGENET_LOCATION']
-
-        else:
-            raise ValueError(
-                'to use tiny-imagenet you must set the '
-                '"TINY_IMAGENET_LOCATION" environment variable')
-
-        x_aug_tr = np.load(
-            f'{tiny_imagenet_dir}/TinyImagenet_downsized_train_x.npy')
-        y_aug_tr = np.load(
-            f'{tiny_imagenet_dir}/TinyImagenet_downsized_train_y.npy')
-
-        random_ix = np.random.permutation(x_aug_tr.shape[0])
-        x_aug_tr = x_aug_tr[random_ix]
-        y_aug_tr = y_aug_tr[random_ix]
-        x_aug_tr = x_aug_tr[:int(ratio * x_aug_tr.shape[0])]
-        y_aug_tr = y_aug_tr[:int(ratio * y_aug_tr.shape[0])]
-
-        tfds_dir = os.environ['TFDS_DIR'] if 'TFDS_DIR' in os.environ else None
-        (train, test), _ = tfds.load(
-            'cifar10',
-            data_dir=tfds_dir,
-            split=['train', 'test'],
-            with_info=True,
-            shuffle_files=True,
-            as_supervised=True)
-
-        x_train = []
-        y_train = []
-
-        # Iterate over a dataset
-        for image, label in tfds.as_numpy(train.batch(1000)):
-            x_train.append(image)
-            y_train.append(label)
-
-        x_train = np.vstack(x_train)
-        y_train = np.hstack(y_train)
-
-        x_train = x_train.astype(np.float32) / 255.
-
-        x_tr = np.concatenate((x_train, x_aug_tr), axis=0)
-        y_tr = np.concatenate((y_train, y_aug_tr))
-
-        train = (Dataset.from_tensor_slices((x_tr, y_tr))
-                 .cache()
-                 .batch(batch_size)
-                 .map(
-            augmentation,
-            num_parallel_calls=tf.data.experimental.AUTOTUNE,
-            deterministic=False)
-                 .shuffle(10000)
-                 .prefetch(tf.data.experimental.AUTOTUNE))
-
-        test = (test
-                .map(
-            lambda x, y: (tf.cast(x, 'float32') / 255., y),
-            num_parallel_calls=tf.data.experimental.AUTOTUNE,
-            deterministic=False)
-                .cache()
-                .batch(batch_size)
-                .prefetch(tf.data.experimental.AUTOTUNE))
-
-        metadata = lambda: None
-        metadata.features = {
-            'image': lambda: None,
-            'label': lambda: None,
-        }
-        metadata.features['label'].num_classes = 10
-        metadata.features['image'].shape = (32, 32, 3)
-
-    else:
-        tfds_dir = os.environ['TFDS_DIR'] if 'TFDS_DIR' in os.environ else None
-
-        split = ['train', 'test']
-
-        (train, test), metadata = tfds.load(
-            dataset,
-            data_dir=tfds_dir,
-            split=split,
-            with_info=True,
-            shuffle_files=True,
-            as_supervised=True)
-
-        train = (train
-                 .map(
-            lambda x, y: (tf.cast(x, 'float32') / 255., y),
-            num_parallel_calls=tf.data.experimental.AUTOTUNE,
-            deterministic=False)
-                 .cache()
-                 .batch(batch_size)
-                 .map(
-            augmentation,
-            num_parallel_calls=tf.data.experimental.AUTOTUNE,
-            deterministic=False)
-                 .prefetch(tf.data.experimental.AUTOTUNE))
-
-        test = (test
-                .map(
-            lambda x, y: (tf.cast(x, 'float32') / 255., y),
-            num_parallel_calls=tf.data.experimental.AUTOTUNE,
-            deterministic=False)
-                .cache()
-                .batch(batch_size)
-                .prefetch(tf.data.experimental.AUTOTUNE))
-
-    if mixup:
-        train_2, _, _ = get_data(
-            dataset, batch_size, augmentation=augmentation, mixup=False)
-
-        train = Dataset.zip((train, train_2)).map(
-            mixup_augmentation,
-            num_parallel_calls=tf.data.experimental.AUTOTUNE,
-            deterministic=False)
+    test = (test
+            .map(
+        lambda x, y: (tf.cast(x, 'float32') / 255., y),
+        num_parallel_calls=tf.data.experimental.AUTOTUNE,
+        deterministic=False)
+            .cache()
+            .batch(batch_size)
+            .prefetch(tf.data.experimental.AUTOTUNE))
 
     return train, test, metadata
 

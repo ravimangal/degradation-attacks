@@ -12,14 +12,14 @@ from scriptify import scriptify
 import tensorflow_datasets as tfds
 from time import time
 
-from gloro.v1 import GloroNet
-from gloro.v1.training.callbacks import EpsilonScheduler
-from gloro.v1.training.callbacks import TradesScheduler
-from gloro.v1.training.callbacks import LrScheduler
-from gloro.v1.training.metrics import clean_acc
-from gloro.v1.training.metrics import vra
-from gloro.v1.training.metrics import rejection_rate
-from gloro.v1.training import losses
+from gloro import GloroNet
+from gloro.training.callbacks import EpsilonScheduler
+from gloro.training.callbacks import TradesScheduler
+from gloro.training.callbacks import LrScheduler
+from gloro.training.metrics import clean_acc
+from gloro.training.metrics import vra
+from gloro.training.metrics import rejection_rate
+from gloro.training import losses
 
 from training.utils import get_data, get_optimizer
 import training.architectures as architectures
