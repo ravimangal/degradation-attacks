@@ -21,8 +21,8 @@ from gloro.training.metrics import vra
 from gloro.training.metrics import rejection_rate
 from gloro.training import losses
 
-from upper_bounds.training.utils import get_data, get_optimizer
-import upper_bounds.training.architectures as architectures
+from training.utils import get_data, get_optimizer
+import training.architectures as architectures
 
 class GloroLoader(Loader):
 
@@ -119,10 +119,10 @@ def fpr_experiment(superrobust='N',
             trades_schedule=None,
             using_gpu=True,
             gpu=0,
-            filename='0921.log',
             train_model=True,
             model_path=None):
 
+    log_filename = f'{dataset}_{epsilon}_{superrobust}.log'
     print("Experiment parameters:\n")
     print("dataset=", dataset)
     print("architecture=", architecture)
@@ -138,11 +138,11 @@ def fpr_experiment(superrobust='N',
     print("lr=", lr)
     print("lr_schedule=", lr_schedule)
     print("trades_schedule=", trades_schedule)
-    print("log filename=", filename)
+    print("log filename=", log_filename)
     print("train_model=", train_model)
     print("model_path=", model_path)
 
-    f = open(filename, "a")
+    f = open(log_filename, "a")
     f.write("superrobust="+str (superrobust)
             +", dataset="+str (dataset)
             +", architecture="+str (architecture)
@@ -179,9 +179,9 @@ def fpr_experiment(superrobust='N',
             lr=lr,
             lr_schedule=lr_schedule,
             trades_schedule=trades_schedule)
-        gloro_model.save(f'model_{dataset}_{epsilon}_2{superrobust}.gloronet')
+        gloro_model.save(f'{dataset}_{epsilon}_{superrobust}.gloronet')
     else:
-        gloro_model =  GloroNet.load_model(model_path)
+        gloro_model = GloroNet.load_model(model_path)
 
     gloro_model.compile(
         loss=losses.get(loss),
@@ -252,8 +252,7 @@ if __name__ == '__main__':
             trades_schedule=None,
             using_gpu=True,
             gpu=0,
-            filename='moreMnist.log',
-            train_model=False,
+            train_model=True,
             model_path=None):
             
         fpr_experiment(superrobust=superrobust,
@@ -272,4 +271,5 @@ if __name__ == '__main__':
             trades_schedule=trades_schedule,
             using_gpu=using_gpu,
             gpu=gpu,
-            filename=filename)
+            train_model=train_model,
+            model_path=model_path)

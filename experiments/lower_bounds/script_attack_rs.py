@@ -3,7 +3,7 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 import torch
 
-from dbify import dbify
+#from dbify import dbify
 from scriptify import scriptify
 from tensorflow.keras.utils import Progbar
 
@@ -271,7 +271,7 @@ class RsDosAttack(object):
 
 if __name__ == '__main__':
     @scriptify
-    @dbify('gloro', 'dos_rs')
+    # @dbify('gloro', 'dos_rs')
     def script(
         dataset,
         architecture,
@@ -341,6 +341,11 @@ if __name__ == '__main__':
             n=n,
             alpha=alpha,
             bs=batch_size)
+
+        print(f'base_vra: {float(vra.cpu().numpy())}\n',
+            f'vra_under_dos: {float(vra_under_dos.cpu().numpy())}\n',
+            f'false_positive_rate: {float(fpr.cpu().numpy())}\n',
+            f'vra_reduction: {float((vra - vra_under_dos).cpu().numpy())}')
 
         return {
             'base_vra': float(vra.cpu().numpy()),

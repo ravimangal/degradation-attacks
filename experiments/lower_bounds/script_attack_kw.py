@@ -1,7 +1,7 @@
 import os
 import torch
 
-from dbify import dbify
+#from dbify import dbify
 from scriptify import scriptify
 
 import kw
@@ -165,7 +165,7 @@ class LinfPgd(object):
 
 if __name__ == '__main__':
     @scriptify
-    @dbify('gloro', 'dos_kw')
+    # @dbify('gloro', 'dos_kw')
     def script(
         dataset,
         architecture,
@@ -187,6 +187,11 @@ if __name__ == '__main__':
 
         vra, vra_under_dos, upper_bound_vra = dos_attack.eval(
             base_model, test, dataset)
+
+        print(f'base_vra: {float(vra)}\n',
+            f'vra_under_dos: {float(vra_under_dos)}\n',
+            f'upper_bound_vra: {upper_bound_vra}\n',
+            f'vra_reduction: {float((vra - vra_under_dos))}')
 
         return {
             'base_vra': float(vra),

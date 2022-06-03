@@ -3,13 +3,13 @@ import numpy as np
 import tensorflow as tf
 import os
 
-from dbify import dbify
+#from dbify import dbify
 from scriptify import scriptify
 
 from tensorflow.keras.utils import Progbar
 from gloro import GloroNet
 
-from ..training.utils import get_data
+from experiments.training.utils import get_data
 
 class DosAttack(object):
 
@@ -185,7 +185,7 @@ class GloroDosAttackNaive(DosAttack):
 
 if __name__ == '__main__':
     @scriptify
-    @dbify('gloro', 'dos_kw')
+    # @dbify('gloro', 'dos_kw')
     def script(
         dataset,
         architecture,

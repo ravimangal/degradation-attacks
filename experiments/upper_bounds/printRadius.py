@@ -1,10 +1,3 @@
-#MNIST 1.58, 
-# model_path='/longterm/kleino/repos/lib-gloro/experiments/nf/training/models/gloro.077647b1c09ced0d.gloronet'
-#CIFAR, 
-# model_path='./models/cifar_minmax_6c2f_trades.gloronet'
-
-# model_path='./models/mnist_minmax_4c3f_trades.gloronet'
-
 import os
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
@@ -20,7 +13,7 @@ from time import time
 
 from gloro import GloroNet
 
-from training.utils import get_data
+from experiments.training.utils import get_data
 import csv
 import pandas as pd
         
@@ -43,10 +36,10 @@ def print_radius(
         predict.append(yy)
         radius.append(eps)
         correct.append(yy.numpy() == y)
-        print("- label: ",y)
-        print("- predict: ",yy)
-        print("- radius: ", eps)
-        print("- correct: ", yy.numpy() == y)
+        # print("- label: ",y)
+        # print("- predict: ",yy)
+        # print("- radius: ", eps)
+        # print("- correct: ", yy.numpy() == y)
     label = np.concatenate(label, axis=0)
     predict = np.concatenate(predict, axis=0)
     radius = np.concatenate(radius, axis=0)
@@ -60,7 +53,7 @@ if __name__ == '__main__':
                 dataset="cifar10",
                 augmentation=None,
                 batch_size=128,
-                model="./models/cifar10_0.14_N.gloronet",
+                model="cifar10_0.14_N",
                 using_gpu=False,
                 gpu=0):
     
@@ -75,7 +68,7 @@ if __name__ == '__main__':
                 
         train, test, metadata = get_data(dataset, batch_size, augmentation)
         print("loaded data")
-        gloro_model =  GloroNet.load_model(model)
+        gloro_model = GloroNet.load_model(f'./models/gloro/{dataset}/{model}.gloronet')
         print("loaded model")
         
         label,predict,radius,correct = print_radius(gloro_model,test)
@@ -86,5 +79,5 @@ if __name__ == '__main__':
                'radius': radius,
                'correct': correct})
         print("generated table")
-        filename = './data/'+str(model)
-        df.to_csv(filename,index=True)
+        data_file = f'./data/gloro/{dataset}/{model}'
+        df.to_csv(data_file, index=True)
