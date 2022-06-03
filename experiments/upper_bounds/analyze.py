@@ -7,6 +7,7 @@ from typing import *
 import pandas as pd
 import seaborn as sns
 import math
+from scriptify import scriptify
 
 sns.set()
 
@@ -154,10 +155,10 @@ if __name__ == "__main__":
             ylabel="VRA",
             legend='upper right',
             lines=[
-                Line(ApproximateAccuracy(dataFile+"data/mnist_0.3",rs_data=False), "$\epsilon = 0.3$"),
-                Line(ApproximateAccuracy(dataFile+"data/mnist_0.6",rs_data=False), "$\epsilon = 0.6$"),
-                Line(ApproximateAccuracy(dataFile+"data/mnist_1.58",rs_data=False), "$\epsilon = 1.58$"),
-                Line(ApproximateAccuracy(dataFile+"data/mnist_3.16",rs_data=False), "$\epsilon = 3.16$")
+                Line(ApproximateAccuracy(dataFile+"/gloro/mnist_0.3",rs_data=False), "$\epsilon = 0.3$"),
+                Line(ApproximateAccuracy(dataFile+"/gloro/mnist_0.6",rs_data=False), "$\epsilon = 0.6$"),
+                Line(ApproximateAccuracy(dataFile+"/gloro/mnist_1.58",rs_data=False), "$\epsilon = 1.58$"),
+                Line(ApproximateAccuracy(dataFile+"/gloro/mnist_3.16",rs_data=False), "$\epsilon = 3.16$")
             ])
         plot_certified_accuracy(
             outfile="./plots/gloro/mnist_fpr", 
@@ -165,10 +166,10 @@ if __name__ == "__main__":
             max_radius=3.5, 
             ylabel='false positive rate',
             lines=[
-                Line(RobustnessReductionRatio(dataFile+"data/mnist_0.3",rs_data=False), "$\epsilon = 0.3$"),
-                Line(RobustnessReductionRatio(dataFile+"data/mnist_0.6",rs_data=False), "$\epsilon = 0.6$"),
-                Line(RobustnessReductionRatio(dataFile+"data/mnist_1.58",rs_data=False), "$\epsilon = 1.58$"),
-                Line(RobustnessReductionRatio(dataFile+"data/mnist_3.16",rs_data=False), "$\epsilon = 3.16$")
+                Line(RobustnessReductionRatio(dataFile+"/gloro/mnist_0.3",rs_data=False), "$\epsilon = 0.3$"),
+                Line(RobustnessReductionRatio(dataFile+"/gloro/mnist_0.6",rs_data=False), "$\epsilon = 0.6$"),
+                Line(RobustnessReductionRatio(dataFile+"/gloro/mnist_1.58",rs_data=False), "$\epsilon = 1.58$"),
+                Line(RobustnessReductionRatio(dataFile+"/gloro/mnist_3.16",rs_data=False), "$\epsilon = 3.16$")
             ])    
 
         plot_certified_accuracy(
@@ -178,8 +179,8 @@ if __name__ == "__main__":
             ylabel="VRA",
             legend='upper right',
             lines=[
-                Line(ApproximateAccuracy(dataFile+"data/cifar_0.14",rs_data=False), "$\epsilon = 0.14$"),
-                Line(ApproximateAccuracy(dataFile+"data/cifar_0.28",rs_data=False), "$\epsilon = 0.28$")
+                Line(ApproximateAccuracy(dataFile+"/gloro/cifar_0.14",rs_data=False), "$\epsilon = 0.14$"),
+                Line(ApproximateAccuracy(dataFile+"/gloro/cifar_0.28",rs_data=False), "$\epsilon = 0.28$")
             ])
         plot_certified_accuracy(
             outfile="./plots/gloro/cifar10_fpr", 
@@ -187,8 +188,8 @@ if __name__ == "__main__":
             max_radius=1.5, 
             ylabel='false positive rate',
             lines=[
-                Line(RobustnessReductionRatio(dataFile+"data/cifar_0.14",rs_data=False), "$\epsilon = 0.14$"),
-                Line(RobustnessReductionRatio(dataFile+"data/cifar_0.28",rs_data=False), "$\epsilon = 0.28$")
+                Line(RobustnessReductionRatio(dataFile+"/gloro/cifar_0.14",rs_data=False), "$\epsilon = 0.14$"),
+                Line(RobustnessReductionRatio(dataFile+"/gloro/cifar_0.28",rs_data=False), "$\epsilon = 0.28$")
             ])
 
         plot_certified_accuracy(
@@ -198,10 +199,10 @@ if __name__ == "__main__":
             ylabel='VRA', 
             legend='upper right',
             lines = [
-                Line(ApproximateAccuracy(dataFile+"./data/certify/cifar10/resnet110/noise_0.12/test/sigma_0.12"), "$\sigma = 0.12$"),
-                Line(ApproximateAccuracy(dataFile+"./data/certify/cifar10/resnet110/noise_0.25/test/sigma_0.25"), "$\sigma = 0.25$"),
-                Line(ApproximateAccuracy(dataFile+"./data/certify/cifar10/resnet110/noise_0.50/test/sigma_0.50"), "$\sigma = 0.50$"),
-                Line(ApproximateAccuracy(dataFile+"./data/certify/cifar10/resnet110/noise_1.00/test/sigma_1.00"), "$\sigma = 1.00$"),
+                Line(ApproximateAccuracy(dataFile+"/rs/cifar10/resnet110/noise_0.12/test/sigma_0.12"), "$\sigma = 0.12$"),
+                Line(ApproximateAccuracy(dataFile+"/rs/cifar10/resnet110/noise_0.25/test/sigma_0.25"), "$\sigma = 0.25$"),
+                Line(ApproximateAccuracy(dataFile+"/rs/cifar10/resnet110/noise_0.50/test/sigma_0.50"), "$\sigma = 0.50$"),
+                Line(ApproximateAccuracy(dataFile+"/rs/cifar10/resnet110/noise_1.00/test/sigma_1.00"), "$\sigma = 1.00$"),
             ])
 
         plot_certified_accuracy(
@@ -211,9 +212,9 @@ if __name__ == "__main__":
             ylabel='VRA', 
             legend='upper right',
             lines = [
-                Line(ApproximateAccuracy(dataFile+"./data/certify/imagenet/resnet50/noise_0.25/test/sigma_0.25"), "$\sigma = 0.25$"),
-                Line(ApproximateAccuracy(dataFile+"./data/certify/imagenet/resnet50/noise_0.50/test/sigma_0.50"), "$\sigma = 0.50$"),
-                Line(ApproximateAccuracy(dataFile+"./data/certify/imagenet/resnet50/noise_1.00/test/sigma_1.00"), "$\sigma = 1.00$"),
+                Line(ApproximateAccuracy(dataFile+"/rs/imagenet/resnet50/noise_0.25/test/sigma_0.25"), "$\sigma = 0.25$"),
+                Line(ApproximateAccuracy(dataFile+"/rs/imagenet/resnet50/noise_0.50/test/sigma_0.50"), "$\sigma = 0.50$"),
+                Line(ApproximateAccuracy(dataFile+"/rs/imagenet/resnet50/noise_1.00/test/sigma_1.00"), "$\sigma = 1.00$"),
             ])
 
         plot_certified_accuracy(
@@ -222,10 +223,10 @@ if __name__ == "__main__":
             max_radius = 2, 
             ylabel='false positive rate', 
             lines = [
-                Line(RobustnessReductionRatio(dataFile+"./data/certify/cifar10/resnet110/noise_0.12/test/sigma_0.12"), "$\sigma = 0.12$"),
-                Line(RobustnessReductionRatio(dataFile+"./data/certify/cifar10/resnet110/noise_0.25/test/sigma_0.25"), "$\sigma = 0.25$"),
-                Line(RobustnessReductionRatio(dataFile+"./data/certify/cifar10/resnet110/noise_0.50/test/sigma_0.50"), "$\sigma = 0.50$"),
-                Line(RobustnessReductionRatio(dataFile+"./data/certify/cifar10/resnet110/noise_1.00/test/sigma_1.00"), "$\sigma = 1.00$"),
+                Line(RobustnessReductionRatio(dataFile+"/rs/cifar10/resnet110/noise_0.12/test/sigma_0.12"), "$\sigma = 0.12$"),
+                Line(RobustnessReductionRatio(dataFile+"/rs/cifar10/resnet110/noise_0.25/test/sigma_0.25"), "$\sigma = 0.25$"),
+                Line(RobustnessReductionRatio(dataFile+"/rs/cifar10/resnet110/noise_0.50/test/sigma_0.50"), "$\sigma = 0.50$"),
+                Line(RobustnessReductionRatio(dataFile+"/rs/cifar10/resnet110/noise_1.00/test/sigma_1.00"), "$\sigma = 1.00$"),
             ])
         
 
@@ -235,9 +236,9 @@ if __name__ == "__main__":
             max_radius = 2, 
             ylabel='false positive rate', 
             lines = [
-                Line(RobustnessReductionRatio(dataFile+"./data/certify/imagenet/resnet50/noise_0.25/test/sigma_0.25"), "$\sigma = 0.25$"),
-                Line(RobustnessReductionRatio(dataFile+"./data/certify/imagenet/resnet50/noise_0.50/test/sigma_0.50"), "$\sigma = 0.50$"),
-                Line(RobustnessReductionRatio(dataFile+"./data/certify/imagenet/resnet50/noise_1.00/test/sigma_1.00"), "$\sigma = 1.00$"),
+                Line(RobustnessReductionRatio(dataFile+"/rs/imagenet/resnet50/noise_0.25/test/sigma_0.25"), "$\sigma = 0.25$"),
+                Line(RobustnessReductionRatio(dataFile+"/rs/imagenet/resnet50/noise_0.50/test/sigma_0.50"), "$\sigma = 0.50$"),
+                Line(RobustnessReductionRatio(dataFile+"/rs/imagenet/resnet50/noise_1.00/test/sigma_1.00"), "$\sigma = 1.00$"),
             ])
         
     
