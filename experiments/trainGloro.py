@@ -21,8 +21,8 @@ from gloro.training.metrics import vra
 from gloro.training.metrics import rejection_rate
 from gloro.training import losses
 
-from training.utils import get_data, get_optimizer
-import training.architectures as architectures
+from upper_bounds.training.utils import get_data, get_optimizer
+import upper_bounds.training.architectures as architectures
 
 class GloroLoader(Loader):
 
