@@ -65,5 +65,5 @@ The data could from both gloro model (by file `printRadius.py`) and randomized s
 The generated data for both models are stored in the file `./data/`
 
 ```
-python experiments/upper_bounds/analyze.py --dataFile=<path_to_data>
+python experiments/upper_bounds/analyze.py --dataFile=data
 ```
