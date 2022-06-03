@@ -274,7 +274,7 @@ if __name__ == '__main__':
     # @dbify('gloro', 'dos_rs')
     def script(
         dataset,
-        architecture,
+        model_path,
         sigma,
         epsilon,
         n0=100,
@@ -283,10 +283,8 @@ if __name__ == '__main__':
         batch_size=1000,
         skip=100,
     ):
-        path = os.environ['COHEN_ET_AL_MODEL_DIR']
-        file = f'{dataset}/{architecture}/noise_{sigma:.2f}/checkpoint.pth.tar'
 
-        checkpoint = torch.load(f'{path}/{file}')
+        checkpoint = torch.load(model_path)
         base_model = get_architecture(checkpoint['arch'], dataset)
         base_model.load_state_dict(checkpoint['state_dict'])
 

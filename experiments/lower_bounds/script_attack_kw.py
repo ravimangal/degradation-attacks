@@ -168,16 +168,15 @@ if __name__ == '__main__':
     # @dbify('gloro', 'dos_kw')
     def script(
         dataset,
+        model_path,
         architecture,
         epsilon,
         batch_size=1000,
         skip=100,
         use_2eps=False,
     ):
-        path = os.environ['KWL_MODEL_DIR']
-        file = f'{dataset}/{architecture}/checkpoint.pth'
 
-        state = torch.load(f'{path}/{file}')['state_dict'][0]
+        state = torch.load(model_path)['state_dict'][0]
         base_model = getattr(kw, architecture)()
         base_model.load_state_dict(state)
 

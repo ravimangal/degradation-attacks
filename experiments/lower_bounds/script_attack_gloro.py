@@ -188,7 +188,7 @@ if __name__ == '__main__':
     # @dbify('gloro', 'dos_kw')
     def script(
         dataset,
-        architecture,
+        model_path,
         epsilon,
         batch_size=256,
     ):
@@ -204,12 +204,9 @@ if __name__ == '__main__':
             tf.config.experimental.set_memory_growth(device, True)
 
 
-        path = os.environ['GLORO_MODEL_DIR']
-        file = f'{dataset}/{architecture}'
-
         attack = GloroDosAttack(epsilon)
         train, test, meta = get_data(dataset, batch_size=batch_size)
-        g = GloroNet.load_model(f'{path}/{file}')
+        g = GloroNet.load_model(model_path)
 
         vra_under_dos, fraction_susceptible = attack.eval(g, test)
 
