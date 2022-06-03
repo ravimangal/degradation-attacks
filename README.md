@@ -36,17 +36,17 @@ For generating the plots in the paper, we use the file `analyze.py`.
 
 This file trains the gloro models. Hyperprameters for training and evaluating the model should be provided in the command line as follows.
 ```
-python experiments/trainGloro.py --superrobust='Y' --dataset="mnist" --architecture="minmax_cnn_2C2F" --epsilon=0.3 --epsilon_train=0.3 --epsilon_schedule='fixed' --loss='sparse_trades.2.0' --augmentation=None --epochs=500 --batch_size=128 --optimizer='adam' --lr=1e-3 --lr_schedule='decay_to_0.000001' --trades_schedule='linear_from_0.1'
+python experiments/trainGloro.py --superrobust='Y' --dataset="mnist" --architecture="minmax_cnn_2C2F" --epsilon=0.3 --epsilon_train=0.3 --epsilon_schedule='fixed' --loss='sparse_trades_kl.2.0' --augmentation=None --epochs=500 --batch_size=128 --optimizer='adam' --lr=1e-3 --lr_schedule='decay_to_0.000001' --trades_schedule='linear_from_0.1'
 
-python experiments/trainGloro.py --superrobust='N' --dataset="mnist" --architecture="minmax_cnn_2C2F" --epsilon=0.3 --epsilon_train=0.3 --epsilon_schedule='fixed' --loss='sparse_trades.0.1' --augmentation=None --epochs=500 --batch_size=128 --optimizer='adam' --lr=1e-3 --lr_schedule='decay_to_0.000001' --trades_schedule='linear_from_0.1'
+python experiments/trainGloro.py --superrobust='N' --dataset="mnist" --architecture="minmax_cnn_2C2F" --epsilon=0.3 --epsilon_train=0.3 --epsilon_schedule='fixed' --loss='sparse_trades_kl.0.1' --augmentation=None --epochs=500 --batch_size=128 --optimizer='adam' --lr=1e-3 --lr_schedule='decay_to_0.000001' --trades_schedule='linear_from_0.1'
 
-python experiments/trainGloro.py --superrobust='Y' --dataset="mnist" --architecture="minmax_cnn_4C3F" --epsilon=1.58 --epsilon_train=1.74 --epsilon_schedule='logarithmic' --loss='sparse_trades.1.5' --augmentation=None --epochs=500 --batch_size=128 --optimizer='adam' --lr=1e-3 --lr_schedule='decay_to_0.000005' --trades_schedule='fixed'
+python experiments/trainGloro.py --superrobust='Y' --dataset="mnist" --architecture="minmax_cnn_4C3F" --epsilon=1.58 --epsilon_train=1.74 --epsilon_schedule='logarithmic' --loss='sparse_trades_kl.1.5' --augmentation=None --epochs=500 --batch_size=128 --optimizer='adam' --lr=1e-3 --lr_schedule='decay_to_0.000005' --trades_schedule='fixed'
 
-python experiments/trainGloro.py --superrobust='N' --dataset="mnist" --architecture="minmax_cnn_4C3F" --epsilon=1.58 --epsilon_train=1.74 --epsilon_schedule='logarithmic' --loss='sparse_trades.1.5' --augmentation=None --epochs=500 --batch_size=128 --optimizer='adam' --lr=1e-3 --lr_schedule='decay_to_0.000005' --trades_schedule='fixed'
+python experiments/trainGloro.py --superrobust='N' --dataset="mnist" --architecture="minmax_cnn_4C3F" --epsilon=1.58 --epsilon_train=1.74 --epsilon_schedule='logarithmic' --loss='sparse_trades_kl.1.5' --augmentation=None --epochs=500 --batch_size=128 --optimizer='adam' --lr=1e-3 --lr_schedule='decay_to_0.000005' --trades_schedule='fixed'
 
-python experiments/trainGloro.py --superrobust='Y' --dataset="cifar10" --architecture="minmax_cnn_6C2F" --epsilon=0.141 --epsilon_train=0.141 --epsilon_schedule='logarithmic' --loss='sparse_trades.1.2' --augmentation='cifar' --epochs=800 --batch_size=512 --optimizer='adam' --lr=1e-3 --lr_schedule='decay_to_0.000001' --trades_schedule='fixed'
+python experiments/trainGloro.py --superrobust='Y' --dataset="cifar10" --architecture="minmax_cnn_6C2F" --epsilon=0.141 --epsilon_train=0.141 --epsilon_schedule='logarithmic' --loss='sparse_trades_kl.1.2' --augmentation='cifar' --epochs=800 --batch_size=512 --optimizer='adam' --lr=1e-3 --lr_schedule='decay_to_0.000001' --trades_schedule='fixed'
 
-python experiments/trainGloro.py --superrobust='N' --dataset="cifar10" --architecture="minmax_cnn_6C2F" --epsilon=0.141 --epsilon_train=0.141 --epsilon_schedule='logarithmic' --loss='sparse_trades.1.2' --augmentation='cifar' --epochs=800 --batch_size=512 --optimizer='adam' --lr=1e-3 --lr_schedule='decay_to_0.000001' --trades_schedule='fixed'
+python experiments/trainGloro.py --superrobust='N' --dataset="cifar10" --architecture="minmax_cnn_6C2F" --epsilon=0.141 --epsilon_train=0.141 --epsilon_schedule='logarithmic' --loss='sparse_trades_kl.1.2' --augmentation='cifar' --epochs=800 --batch_size=512 --optimizer='adam' --lr=1e-3 --lr_schedule='decay_to_0.000001' --trades_schedule='fixed'
 ```
 
 #### experiments/upper_bounds/printRadius.py

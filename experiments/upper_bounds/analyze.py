@@ -188,8 +188,8 @@ if __name__ == "__main__":
             max_radius=1.5, 
             ylabel='false positive rate',
             lines=[
-                Line(RobustnessReductionRatio("./data/gloro/cifar10/cifar_0.14_N",rs_data=False), "$\epsilon = 0.14$"),
-                Line(RobustnessReductionRatio("./data/gloro/cifar10/cifar_0.14_Y",rs_data=False), "$\epsilon = 0.28$")
+                Line(RobustnessReductionRatio("./data/gloro/cifar10/cifar10_0.14_N",rs_data=False), "$\epsilon = 0.14$"),
+                Line(RobustnessReductionRatio("./data/gloro/cifar10/cifar10_0.14_Y",rs_data=False), "$\epsilon = 0.28$")
             ])
 
         plot_certified_accuracy(
