@@ -19,7 +19,7 @@ As a result, while a norm-bounded adversary cannot change the classification of 
 conda create --name deg
 conda activate deg
 pip install gloro
-pip install cachable scriptify tensorflow_datasets
+pip install cachable scriptify tensorflow_datasets matplotlib pandas seaborn
 ```
 
 ### Lowerbound experiments
