@@ -1,3 +1,17 @@
+# Introduction
+
+Deep neural networks have become increasingly influential in many complex machine-learning tasks, including visual and speech recognition problems. 
+Unfortunately, many neural networks are vulnerable to adversarial examples. 
+An adversarial example for a neural classifier is the result of applying minor modifications to a correctly classified valid input such that the modified input is classified incorrectly. 
+Certifiably robust classifiers offer the most rigorous solution to this problem and provably protect models against adversarial examples’ attacks. 
+These classifiers are constructed by composing a standard classifier with a certified run-time defense.
+
+In this repository, we show through experiments that even complete defenses are inherently over-cautious. 
+We introduce a degradation attack and empirically demonstrate the efficacy of such attacks against state-of-the-art certifiable defenses.
+
+# Experiment results
+
+
 # Installation
 
 1. Clone the repository and change into its root directory.
