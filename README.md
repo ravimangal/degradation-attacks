@@ -15,12 +15,13 @@ As a result, while a norm-bounded adversary cannot change the classification of 
 
 2. Setup a conda environment and install the relevant packages as follows
 ```
-conda create --name degrade
-conda activate degrade
+conda create --name degradation
+conda activate degradation
 conda install -c conda-forge tensorflow 
-conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
+conda install pytorch torchvision -c pytorch
 pip install cachable scriptify tensorflow_datasets matplotlib pandas seaborn foolbox
 ```
+We need TensorFlow to train, evaluate, and attack the GloRo models, whereas PyTorch is needed for attacking the Randomized Smoothed and KW models. 
 Note that the gloro folder contains the GloRo implementation by Leino et al. copied from [here](https://github.com/klasleino/gloro). We make a small modification to the code so that a GloRo model returns the certified radius along with its prediction. 
 
 
