@@ -20,7 +20,7 @@ from time import time
 
 from gloro import GloroNet
 
-from ..training.utils import get_data
+from training.utils import get_data
 import csv
 import pandas as pd
         
